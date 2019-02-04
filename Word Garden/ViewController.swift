@@ -12,13 +12,15 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var userGuessLabel: UILabel!
     @IBOutlet weak var guessedLetterField: UITextField!
-    @IBOutlet weak var guessedLetterButton: UIButton!
+    @IBOutlet weak var guessLetterButton: UIButton!
     @IBOutlet weak var guessCountLabel: UILabel!
     @IBOutlet weak var playAgainButton: UIButton!
     @IBOutlet weak var flowerImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guessLetterButton.isEnabled = false
+        playAgainButton.isHidden = true
 //        print("In viewDidLoad, is guessLetterField the first responder?", guessedLetterField.isFirstResponder)
     }
     
@@ -29,6 +31,13 @@ class ViewController: UIViewController {
     
     @IBAction func guessedLetterFieldChanged(_ sender: UITextField) {
 //        print("Hey, The guessedLetterFieldChanged!")
+        if let letterGuessed = guessedLetterField.text?.last {
+            guessedLetterField.text = "\(letterGuessed)"
+            guessLetterButton.isEnabled = true
+        } else {
+//            disable the button if I don't have a single character in the guessLetterField
+            guessLetterButton.isEnabled = false
+        }
     }
     
     @IBAction func doneKeyPressed(_ sender: UITextField) {
